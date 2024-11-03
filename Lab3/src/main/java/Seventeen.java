@@ -1,15 +1,22 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Seventeen {
 
-    public static void CheckArgumentsType(String[] args){
-        System.out.println("Total arguments: " + args.length);
-        for (var arg : args)
+    public static List<String> CheckArgumentsType(String[] args) {
+        List<String> results = new ArrayList<>();
+        results.add("Total arguments: " + args.length);
+        for (var arg : args) {
             if (arg.matches("[-+]?\\d*\\.?\\d+"))
-                System.out.println("Argument: " + arg + " -> Type: Decimal");
+                results.add("Argument: " + arg + " -> Type: Decimal");
             else
-                System.out.println("Argument: " + arg + " -> Type: String");
+                results.add("Argument: " + arg + " -> Type: String");
+        }
+        return results;
     }
 
-    private static void main(String[] args) {
-        CheckArgumentsType(new String[] {"1515.515", "Happy Birthday"});
+    public static void main(String[] args) {
+        List<String> results = CheckArgumentsType(new String[] {"1515.515", "Happy Birthday"});
+        results.forEach(System.out::println);
     }
 }

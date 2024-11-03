@@ -1,8 +1,7 @@
-import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.TreeSet;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 class Book {
     String title;
@@ -30,26 +29,49 @@ class Book {
 }
 
 public class Seventeen {
-    public static void main(String[] args) {
-        HashMap<Integer, Book> catalog = new HashMap<>();
-        catalog.put(1001, new Book("Java Programming", "Ivanov", "Ivan", "Ivanovich", "PublisherA", 2020, 29.99f));
-        catalog.put(1002, new Book("Data Structures", "Petrov", "Petr", "Petrovich", "PublisherB", 2019, 19.99f));
-        catalog.put(1003, new Book("Data Programming","Dmitrov", "Dmitro", "Dmitrievich",  "PublisherC", 2021, 39.99f));
-        catalog.put(1004, new Book("Java Structures","Nikitov", "Nikita", "Nikitovich", "PublisherD", 2022, 9.99f));
-        catalog.put(1005, new Book("Java Data Programming", "Androv", "Andrii", "Andrievich",  "PublisherF", 2023, 5.99f));
+    private HashMap<Integer, Book> catalog;
 
-        System.out.println("Сортування по автору");
-        ArrayList<Book> sortedByAuthor = new ArrayList<>(catalog.values());
-        Collections.sort(sortedByAuthor, Comparator.comparing(b -> b.authorSurname));
-        sortedByAuthor.forEach(System.out::println);
-        System.out.println("\nСортування по року видання");
+    public Seventeen() {
+        catalog = new HashMap<>();
+    }
 
-        ArrayList<Book> sortedByYear = new ArrayList<>(catalog.values());
-        Collections.sort(sortedByYear, Comparator.comparing(b -> b.year));
-        sortedByYear.forEach(System.out::println);
+    public void addBook(Integer isbn, Book book) {
+        catalog.put(isbn, book);
+    }
 
+    public Book findBookByISBN(Integer isbn) {
+        return catalog.get(isbn);
+    }
+
+    public ArrayList<Book> getSortedBooksByAuthor() {
+        ArrayList<Book> sortedBooks = new ArrayList<>(catalog.values());
+        sortedBooks.sort(Comparator.comparing(b -> b.authorSurname));
+        return sortedBooks;
+    }
+
+    public ArrayList<Book> getSortedBooksByYear() {
+        ArrayList<Book> sortedBooks = new ArrayList<>(catalog.values());
+        sortedBooks.sort(Comparator.comparing(b -> b.year));
+        return sortedBooks;
+    }
+
+    public TreeSet<String> getUniqueTitles() {
         TreeSet<String> uniqueTitles = new TreeSet<>();
         catalog.values().forEach(book -> uniqueTitles.add(book.title));
-        System.out.println("\nUnique titles: " + uniqueTitles);
+        return uniqueTitles;
+    }
+
+    public static void main(String[] args) {
+        Seventeen seventeen = new Seventeen();
+        seventeen.addBook(1001, new Book("Java Programming", "Ivanov", "Ivan", "Ivanovich", "PublisherA", 2020, 29.99f));
+        seventeen.addBook(1002, new Book("Data Structures", "Petrov", "Petr", "Petrovich", "PublisherB", 2019, 19.99f));
+        seventeen.addBook(1003, new Book("Data Programming", "Dmitrov", "Dmitro", "Dmitrievich", "PublisherC", 2021, 39.99f));
+        seventeen.addBook(1004, new Book("Java Structures", "Nikitov", "Nikita", "Nikitovich", "PublisherD", 2022, 9.99f));
+        seventeen.addBook(1005, new Book("Java Data Programming", "Androv", "Andrii", "Andrievich", "PublisherF", 2023, 5.99f));
+
+        seventeen.getSortedBooksByAuthor().forEach(System.out::println);
+        System.out.println("\nСортування по року видання");
+        seventeen.getSortedBooksByYear().forEach(System.out::println);
+        System.out.println("\nUnique titles: " + seventeen.getUniqueTitles());
     }
 }

@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.TreeMap;
 
 class Abonent {
@@ -20,14 +23,34 @@ class Abonent {
 }
 
 public class One {
-    public static void main(String[] args) {
-        TreeMap<Integer, Abonent> abonents = new TreeMap<>();
-        abonents.put(123456789, new Abonent("Ivanov", "Ivan", "Ivanovich", "Kyiv"));
-        abonents.put(987654321, new Abonent("Petrov", "Petr", "Petrovich", "Lviv"));
-        abonents.put(515161925, new Abonent("Dmitrov", "Dmitro", "Dmitrievich", "Druzhkivka"));
-        abonents.put(728817822, new Abonent("Nikitov", "Nikita", "Nikitovich", "Volnogorsk"));
-        abonents.put(198952525, new Abonent("Androv", "Andrii", "Andrievich", "Nikolaiv"));
+    private TreeMap<Integer, Abonent> abonents;
 
-        abonents.forEach((phone, abonent) -> System.out.println("Phone: " + phone + " -> " + abonent));
+    public One() {
+        abonents = new TreeMap<>();
+    }
+
+    public void addAbonent(Integer phone, Abonent abonent) {
+        abonents.put(phone, abonent);
+    }
+
+    public List<Abonent> getSortedAbonentsByFields() {
+        List<Abonent> sortedAbonents = new ArrayList<>(abonents.values());
+        sortedAbonents.sort(Comparator.comparing((Abonent a) -> a.surname).thenComparing(a -> a.name));
+        return sortedAbonents;
+    }
+
+    public TreeMap<Integer, Abonent> getAbonents() {
+        return abonents;
+    }
+
+    public static void main(String[] args) {
+        One one = new One();
+        one.addAbonent(123456789, new Abonent("Ivanov", "Ivan", "Ivanovich", "Kyiv"));
+        one.addAbonent(987654321, new Abonent("Petrov", "Petr", "Petrovich", "Lviv"));
+        one.addAbonent(515161925, new Abonent("Dmitrov", "Dmitro", "Dmitrievich", "Druzhkivka"));
+        one.addAbonent(728817822, new Abonent("Nikitov", "Nikita", "Nikitovich", "Volnogorsk"));
+        one.addAbonent(198952525, new Abonent("Androv", "Andrii", "Andrievich", "Nikolaiv"));
+
+        one.getAbonents().forEach((phone, abonent) -> System.out.println("Phone: " + phone + " -> " + abonent));
     }
 }

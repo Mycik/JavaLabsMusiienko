@@ -4,7 +4,7 @@ import java.util.Map;
 public class Thirteen {
     private static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    private static String encrypt(String text, String key) {
+    public static String encrypt(String text, String key) {
         Map<Character, Character> cipher = new HashMap<>();
         for (int i = 0; i < ALPHABET.length(); i++)
             cipher.put(ALPHABET.charAt(i), key.charAt(i));
@@ -16,7 +16,7 @@ public class Thirteen {
         return encrypted.toString();
     }
 
-    private static String decrypt(String text, String key) {
+    public static String decrypt(String text, String key) {
         Map<Character, Character> decipher = new HashMap<>();
         for (int i = 0; i < ALPHABET.length(); i++)
             decipher.put(key.charAt(i), ALPHABET.charAt(i));

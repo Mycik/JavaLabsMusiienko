@@ -1,20 +1,27 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class ThirteenNine {
 
-    private static void ConvertingArguments(String[] args){
-        var hexCount = 0;
-        System.out.println("Total arguments: " + args.length);
+    public static List<String> ConvertingArguments(String[] args) {
+        List<String> results = new ArrayList<>();
+        int hexCount = 0;
+        results.add("Total arguments: " + args.length);
         for (String arg : args) {
             if (arg.matches("^[0-9A-Fa-f]+$")) {
-                System.out.println("Argument: " + arg + " -> Binary: " + Integer.toBinaryString(Integer.parseInt(arg, 16)));
+                String binary = Integer.toBinaryString(Integer.parseInt(arg, 16));
+                results.add("Argument: " + arg + " -> Binary: " + binary);
                 hexCount++;
             } else {
-                System.out.println("Argument: " + arg + " -> Type: String");
+                results.add("Argument: " + arg + " -> Type: String");
             }
         }
-        System.out.println("Total hex arguments: " + hexCount);
+        results.add("Total hex arguments: " + hexCount);
+        return results;
     }
 
     public static void main(String[] args) {
-        ConvertingArguments(new String[] {"1f", "abcdf", "sdfsdf"});
+        List<String> results = ConvertingArguments(new String[] {"1f", "abcdf", "sdfsdf"});
+        results.forEach(System.out::println);
     }
 }
